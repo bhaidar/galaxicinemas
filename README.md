@@ -1,13 +1,13 @@
 # Galaxi Cinemas
-## Website and Management tool for movie theaters.
+Website and Management tool for movie theaters.
 
-### Requirements
+## Requirements
 
-#### Environment
+### Environment
 - PHP 7.4+
 - MySQL database
 
-#### Frontend
+### Frontend
 - Axios
 - Bootstrap
 - Lodash
@@ -16,18 +16,18 @@
 - VueJS
 - Vuex
 
-#### Backend
+### Backend
 - Laravel
 
-### Installation
+## Installation
 
-#### Requirements
+### Requirements
 - NodeJS
 - NPM
 - SASS
 - Webpack
 
-#### Steps
+### Steps
 - web server should point domain to `public` subdirectory of this project
 - within root directory of project:
 	- `composer install`
