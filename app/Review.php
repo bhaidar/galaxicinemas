@@ -4,11 +4,17 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Review extends Model
-{
+class Review extends Model {
+
+    protected $fillable = [
+        'name',
+        'email',
+        'stars',
+        'content',
+        'approved'
+    ];
     
-    public function movie()
-    {
+    public function movie() {
         return $this->belongsTo(Movie::class);
     }
     

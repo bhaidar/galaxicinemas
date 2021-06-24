@@ -1,0 +1,49 @@
+.movie {
+
+	display: flex;
+	flex-direction: column;
+
+	.movie-poster {
+		margin: 0; padding: 0;
+		& > img {
+			display: block;
+			width: 100%; height: auto;
+		}
+	}
+
+	.movie-rating {
+
+		font-size: .8em; line-height: 1.8;
+		text-align: center;
+
+		display: inline-block;
+
+		width: 1.4em;
+		margin: 0 .2em; padding: 0 .4em;
+
+		border-radius: .2em;
+
+	}
+
+	.movie-duration {
+		font-size: .8em;
+	}
+
+	&.movie-teaser {
+		width: 14rem;
+	}
+
+}
+
+.list-group-item .movie {
+	&.movie-teaser {
+		margin: 1rem;
+		transform: scale(1);
+		transition: transform .1s ease-out;
+		&:active, &:focus, &:hover {
+			transform: scale(1.1);
+			transition: transform .2s ease-in;
+		}
+	}
+}
+

@@ -1,0 +1,30 @@
+:root {
+	--color_primary: #4fb848;
+	--color_secondary: #2ca449;
+	--color_dark: #333;
+	--color_dark-alt: #232323;
+	--color_light: #b3b4b4;
+	--color_light-alt: #fff;
+	--color_contrast: #86b;
+}
+
+/*
+
+	for each of the colors defined above,
+	create a utility class that will set either the text color or background color of an element
+
+*/
+
+$color_keys: 'primary', 'secondary', 'light', 'light-alt', 'dark', 'dark-alt', 'contrast';
+
+@each $color_key in $color_keys {
+
+	.bg-#{$color_key} {
+		background-color: var(--color_#{$color_key}) !important;
+	}
+
+	.text-#{$color_key} {
+		color: var(--color_#{$color_key}) !important;
+	}
+
+}

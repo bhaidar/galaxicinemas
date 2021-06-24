@@ -6,14 +6,12 @@
 		>
 
 			<li
-				@click="loadMovieDetails(movie)"
 				v-for="movie in movies"
 				:key="movie.id"
-				class="list-group-item list-group-item-link"
+				class="list-group-item"
 			>
 				<display-movie-teaser
 					:movie="movie"
-					:show-titles="false"
 				/>
 			</li>
 
@@ -25,18 +23,13 @@
 	import DisplayMovieTeaser from '@elements/DisplayMovieTeaser';
 	import DummyHelper from '@helpers/Dummy.js';
 	export default {
-		name: 'RouteWebIndex',
+		name: 'RouteWebComing',
 		components: {
 			DisplayMovieTeaser
 		},
 		data() {
 			return {
 				movies: DummyHelper.movies
-			}
-		},
-		methods: {
-			loadMovieDetails(movie) {
-				this.$router.push('/movie/'+movie.id);
 			}
 		}
 	}

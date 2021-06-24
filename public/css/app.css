@@ -1,1 +1,295 @@
+:root {
+  --color_primary: #4fb848;
+  --color_secondary: #2ca449;
+  --color_dark: #333;
+  --color_dark-alt: #232323;
+  --color_light: #b3b4b4;
+  --color_light-alt: #fff;
+  --color_contrast: #86b;
+}
 
+/*
+
+	for each of the colors defined above,
+	create a utility class that will set either the text color or background color of an element
+
+*/
+.bg-primary {
+  background-color: var(--color_primary) !important;
+}
+
+.text-primary {
+  color: var(--color_primary) !important;
+}
+
+.bg-secondary {
+  background-color: var(--color_secondary) !important;
+}
+
+.text-secondary {
+  color: var(--color_secondary) !important;
+}
+
+.bg-light {
+  background-color: var(--color_light) !important;
+}
+
+.text-light {
+  color: var(--color_light) !important;
+}
+
+.bg-light-alt {
+  background-color: var(--color_light-alt) !important;
+}
+
+.text-light-alt {
+  color: var(--color_light-alt) !important;
+}
+
+.bg-dark {
+  background-color: var(--color_dark) !important;
+}
+
+.text-dark {
+  color: var(--color_dark) !important;
+}
+
+.bg-dark-alt {
+  background-color: var(--color_dark-alt) !important;
+}
+
+.text-dark-alt {
+  color: var(--color_dark-alt) !important;
+}
+
+.bg-contrast {
+  background-color: var(--color_contrast) !important;
+}
+
+.text-contrast {
+  color: var(--color_contrast) !important;
+}
+
+:root {
+  --font_primary: "Roboto", sans-serif;
+}
+
+/*
+
+	for each of the colors defined above,
+	create a utility class that will set either the text color or background color of an element
+
+*/
+.font-primary {
+  font-family: var(--font_primary) !important;
+}
+
+.full-height {
+  height: 100vh;
+}
+
+.flex-center {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
+.list-group {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.list-group > .list-group-item {
+  list-style: none;
+}
+.list-group.list-group-grid {
+  display: flex;
+  flex-wrap: wrap;
+}
+.list-group.list-group-grid.two-columns > .list-group-item {
+  width: 50%;
+}
+.list-group.list-group-grid.three-columns > .list-group-item {
+  width: 33.33%;
+}
+.list-group.list-group-grid.four-columns > .list-group-item {
+  width: 25%;
+}
+.list-group.list-group-grid.five-columns > .list-group-item {
+  width: 20%;
+}
+.list-group.list-group-grid.six-columns > .list-group-item {
+  width: 16.66%;
+}
+.list-group.list-group-grid.seven-columns > .list-group-item {
+  width: 14.29%;
+}
+.list-group.list-group-grid.eight-columns > .list-group-item {
+  width: 12.5%;
+}
+
+.list-group-item.list-group-item-link {
+  cursor: pointer;
+}
+
+.movie {
+  display: flex;
+  flex-direction: column;
+}
+.movie .movie-poster {
+  margin: 0;
+  padding: 0;
+}
+.movie .movie-poster > img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.movie .movie-rating {
+  font-size: 0.8em;
+  line-height: 1.8;
+  text-align: center;
+  display: inline-block;
+  width: 1.4em;
+  margin: 0 0.2em;
+  padding: 0 0.4em;
+  border-radius: 0.2em;
+}
+.movie .movie-duration {
+  font-size: 0.8em;
+}
+.movie.movie-teaser {
+  width: 14rem;
+}
+
+.list-group-item .movie.movie-teaser {
+  margin: 1rem;
+  transform: scale(1);
+  transition: transform 0.1s ease-out;
+}
+.list-group-item .movie.movie-teaser:active, .list-group-item .movie.movie-teaser:focus, .list-group-item .movie.movie-teaser:hover {
+  transform: scale(1.1);
+  transition: transform 0.2s ease-in;
+}
+
+html {
+  font-size: 16px;
+}
+
+body {
+  font-size: 1rem;
+  line-height: 1.4;
+  font-weight: 200;
+  background-color: var(--color_light-alt);
+  color: var(--color_dark);
+  font-family: var(--font_primary);
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+body > .body-wrap {
+  position: relative;
+  z-index: 10;
+  width: 100vw;
+  min-height: calc(100vh - 14rem);
+  margin: 0;
+  padding: 12rem 0 2rem;
+  overflow: auto;
+}
+
+.container {
+  position: relative;
+  max-width: 64rem;
+  margin: 0 auto;
+  padding: 0;
+}
+
+#header {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  font-size: 0.8rem;
+  line-height: 2.5;
+  text-align: center;
+  position: fixed;
+  z-index: 30;
+  top: 0;
+  right: 0;
+  left: 0;
+  width: 100vw;
+  height: 10rem;
+  margin: 0;
+  padding: 2rem 0 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#header .page-title {
+  margin: 0.1em 0 0 0.3em;
+  font-size: 6.5rem;
+  line-height: 1;
+  font-weight: 200;
+}
+
+#footer {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  font-size: 0.8rem;
+  line-height: 2.5;
+  text-align: center;
+  position: fixed;
+  z-index: 20;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 100vw;
+  height: 2rem;
+  margin: 0;
+  padding: 0;
+}
+#footer .links > ul {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#footer .links > ul > li {
+  list-style: none;
+}
+#footer .links > ul > li > a {
+  display: inline-block;
+  padding: 0 0.5rem;
+  color: var(--color_dark);
+}
+#footer .links > ul > li > a:active, #footer .links > ul > li > a:focus, #footer .links > ul > li > a:hover {
+  color: var(--color_primary);
+}
+
+a {
+  color: var(--color_secondary);
+}
+a:active, a:focus, a:hover {
+  color: var(--color_primary);
+}
+
+.btn.btn-link {
+  background: none;
+  border: none;
+  color: var(--color_secondary);
+  cursor: pointer;
+  display: inline;
+  text-decoration: underline;
+  width: auto;
+  height: auto;
+  margin: 0;
+  padding: 0;
+}
+.btn.btn-link:active, .btn.btn-link:focus, .btn.btn-link:hover {
+  color: var(--color_primary);
+}

@@ -1,0 +1,20 @@
+:root {
+	--font_primary: 'Roboto', sans-serif;
+}
+
+/*
+
+	for each of the colors defined above,
+	create a utility class that will set either the text color or background color of an element
+
+*/
+
+$font_keys: 'primary';
+
+@each $font_key in $font_keys {
+
+	.font-#{$font_key} {
+		font-family: var(--font_#{$font_key}) !important;
+	}
+
+}
