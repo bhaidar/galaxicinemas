@@ -2,14 +2,22 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-	return view('app');
-});
-
-Route::get('/coming-soon', function () {
-	return view('app');
-});
-
 Route::get('/dashboard', function () {
-	return view('app');
+	return view('dash');
+});
+
+Route::get('/dashboard/{any}', function () {
+	return view('dash');
+});
+
+Route::get('/', function () {
+	return view('web');
+});
+
+Route::get('/movie/{movie_id}', function () {
+	return view('web');
+});
+
+Route::get('/{any}', function () {
+	return view('web');
 });

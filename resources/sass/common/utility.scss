@@ -1,0 +1,103 @@
+.full-height {
+	height: 100vh;
+}
+
+.flex-center {
+	align-items: center;
+	display: flex;
+	justify-content: center;
+}
+
+.text-center {
+	text-align: center;
+}
+
+@mixin unselectable {
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none; 
+}
+
+
+
+/*
+	
+	Margin / Padding utilities
+	to demonstrate the joy of SCSS loops
+
+*/
+
+$sizes:
+	"auto"	"auto",
+	"0"		0,
+	"1"		.25rem,
+	"2"		.5rem,
+	"3"		1rem,
+	"4"		1.5rem,
+	"5"		3rem;
+
+$rules:
+	"m" "margin",
+	"p" "padding";
+
+@each $i, $size in $sizes {
+	@each $rule_abbr, $rule_full in $rules {
+		.#{$rule_abbr}-#{$i} {
+			#{$rule_full}: $size !important;
+		}
+		.#{$rule_abbr}y-#{$i} {
+			#{$rule_full}-top: $size !important;
+			#{$rule_full}-bottom: $size !important;
+		}
+		.#{$rule_abbr}x-#{$i} {
+			#{$rule_full}-left: $size !important;
+			#{$rule_full}-right: $size !important;
+		}
+		.#{$rule_abbr}t-#{$i} {
+			#{$rule_full}-top: $size !important;
+		}
+		.#{$rule_abbr}r-#{$i} {
+			#{$rule_full}-right: $size !important;
+		}
+		.#{$rule_abbr}b-#{$i} {
+			#{$rule_full}-bottom: $size !important;
+		}
+		.#{$rule_abbr}l-#{$i} {
+			#{$rule_full}-left: $size !important;
+		}
+	}
+}
+
+
+
+/*
+
+	just a sneaky way to see the current breakpoint
+	for dev purposes only
+
+*/
+
+body:after {
+
+	content: 'xxs';
+	@include xs { content: 'xs'; }
+	@include sm { content: 'sm'; }
+	@include md { content: 'md'; }
+	@include lg { content: 'lg'; }
+	@include xl { content: 'xl'; }
+	@include xxl { content: 'xxl'; }
+	@include xxxl { content: 'xxxl'; }
+	@include xxxxl { content: 'xxxxl'; }
+	@include xxxxxl { content: 'xxxxxl'; }
+
+	display: block;
+	position: fixed;
+	z-index: 5000;
+	right: 0; bottom: 0;
+	width: 3rem; height: 1.5rem;
+	text-align: center;
+	font-size: .8rem; line-height: 2;
+	color: gold; background: maroon;
+
+}

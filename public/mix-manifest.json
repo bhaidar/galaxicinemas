@@ -1,6 +1,7 @@
 {
-    "/js/app.js": "/js/app.js",
-    "/js/route/web.js": "/js/route/web.js",
-    "/js/route/dash.js": "/js/route/dash.js",
-    "/css/app.css": "/css/app.css"
+    "/js/dash.js": "/js/dash.js",
+    "/js/web.js": "/js/web.js",
+    "/css/web.css": "/css/web.css",
+    "/css/dash.css": "/css/dash.css",
+    "/css/common.css": "/css/common.css"
 }

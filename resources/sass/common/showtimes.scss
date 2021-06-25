@@ -1,0 +1,116 @@
+.showtime-list {
+
+	font-size: 10px; // easier relative math
+
+	.hours, .showtimes {
+		position: relative;
+		white-space: nowrap;
+	}
+
+	.hours {
+		& > .hours-item {
+			// 60px width i.e. 1px per minute
+			position: absolute;
+			top: 0; left: 0;
+			width: 6em; height: 6em;
+			&:after {
+				content: '';
+				display: block;
+				position: absolute;
+				top: 3em;
+				left: 0;
+				right: 0;
+				height: 12em;
+				border: .1em solid var(--color_light);
+				border-width: .2em .1em;
+			}
+			&:first-child:after {
+				border-width: .2em .1em .2em .2em;
+			}
+			&:last-child:after {
+				border-width: .2em .2em .2em .1em;
+			}
+			.hours-label {
+				font-size: 1.4em;
+				font-weight: 600;
+				font-style: normal;
+				color: var(--color_dark);
+			}
+		}
+	}
+
+
+	.showtimes {
+		.showtime-item {
+			position: absolute;
+			top: 6em; left: 0;
+			height: 6em;
+		}
+	}
+
+}
+
+
+.showtime {
+
+	position: relative;
+	height: 6em;
+	display: flex;
+	overflow: hidden;
+	align-items: center;
+	cursor: pointer;
+
+	&:hover {
+		text-shadow: .1em .1em .2em rgba(0,0,0,.2);
+	}
+	
+	& > div:first-child {
+		border-radius: .25rem 0 0 .25rem;
+		padding-left: 1rem;
+	}
+
+	.showtime-icon {
+		height: 100%;
+		flex-grow: 0;
+		flex-shrink: 1;
+		display: flex;
+		align-items: center;
+		margin: 0; padding: 0 .8em;
+		.star {
+			display: inline-block;
+			font-size: 1.5em; line-height: .9;
+			font-style: normal;
+			text-align: center;
+			width: .8em; height: .8em;
+			padding: .1em;
+			border-radius: 5em;
+		}
+	}
+
+	.showtime-label {
+		flex-grow: 1;
+		height: 100%;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		h5 {
+			font-size: 1.8em;
+			line-height: 1.1;
+			& + h5 {
+				font-size: 1.2em;
+				font-weight: 400;
+			}
+		}
+		transition: background-color .2s;
+	}
+
+	.showtime-border {
+		flex-grow: 0;
+		flex-shrink: 0;
+		margin: .3em 0 0 -.2em;
+		& > svg {
+			width: 1.4em; height: auto;
+		}
+	}
+
+}

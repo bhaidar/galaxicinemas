@@ -1,0 +1,72 @@
+.movie {
+
+	.movie-poster {
+		margin: 0; padding: 0;
+		& > img {
+			display: block;
+			width: 100%; height: auto;
+		}
+	}
+
+	.movie-rating {
+		font-size: .8em; line-height: 1.8;
+		text-align: center;
+		white-space: nowrap;
+		display: inline-block;
+		margin: 0 .2em; padding: 0 .6em;
+		border-radius: .2em;
+	}
+
+	.movie-duration {
+		font-size: .8em;
+	}
+
+	&.movie-teaser {
+		width: 14rem;
+	}
+
+	&.movie-details {
+		.row {
+			display: flex;
+		}
+		.movie-poster {
+			overflow: hidden;
+			flex-shrink: 0;
+			margin: 1rem .75rem;
+			border-radius: .25rem;
+			box-shadow: .1em .1em 1em rgba(0,0,0,.4);
+		}
+		.movie-description {
+			display: flex;
+			flex-direction: column;
+			flex-grow: 1;
+			justify-content: center;
+			margin: 0 0 0 2rem;
+		}
+	}
+
+}
+
+.list-group-item .movie {
+	&.movie-teaser {
+		margin: 1rem;
+		transform: scale(1);
+		transition: transform .1s ease-out;
+		&:active, &:focus, &:hover {
+			transform: scale(1.1);
+			transition: transform .2s ease-in;
+		}
+	}
+}
+
+
+.movie-title {
+	font-size: 2rem; line-height: 1;
+	@include md { font-size: 3rem; }
+	margin: 0;
+}
+
+.modal .movie-title {
+	font-size: 1.6rem; line-height: 1.2;
+	@include md { font-size: 2rem; }
+}
