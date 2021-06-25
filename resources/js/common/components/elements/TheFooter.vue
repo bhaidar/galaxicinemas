@@ -16,9 +16,9 @@
 					</li>
 				<li>
 					<a
-						title="Contact details and other information about the theater."
-						href="/about"
-					>Theater Info</a>
+						title="Manage the movies and showtimes for this theater."
+						href="/dashboard"
+					>Dashboard</a>
 				</li>
 				<li>
 					<a

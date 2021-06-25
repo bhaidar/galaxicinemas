@@ -55,7 +55,15 @@
 			</div>
 		</div>
 		<script>
+			window.system = {
+				csrf: "{{ csrf_token() }}"
+			};
 			document.getElementById('progress-bar').style.width = '100%';
+			document.addEventListener('scroll', function(e) {
+				const scrollPosition = window.scrollY;
+				const hasScrolledEnough = scrollPosition > 20;
+				document.body.classList.toggle('is-scrolled', hasScrolledEnough);
+			});
 		</script>
 		<script src="/js/web.js"></script>
 	</body>

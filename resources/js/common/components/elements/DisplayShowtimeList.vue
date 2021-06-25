@@ -48,8 +48,12 @@
 			DisplayShowtime
 		},
 		props: {
-			movie: {
-				type: Object,
+			showtimes: {
+				type: Array,
+				required: true
+			},
+			duration: {
+				type: Number,
 				required: true
 			}
 		},
@@ -68,9 +72,6 @@
 				return classes.join(' ');
 
 			},
-			duration() {
-				return this.movie.duration;
-			},
 			hoursInMinutes() {
 				const minutes = [];
 				this.hourIncrements.forEach(hour => {
@@ -84,9 +85,6 @@
 					friendly.push(dateHelper.getFriendlyHourFromTime(hour));
 				});
 				return friendly;
-			},
-			showtimes() {
-				return this.movie.showtimes;
 			},
 			showtimeOffsets() {
 				const minutes = [];

@@ -1,3 +1,29 @@
+@use "sass:math";
+@import '../common/vars';
+
 #header {
-    cursor: pointer;
+	cursor: pointer;
+	background-color: transparent;
+	border-bottom: .1rem solid transparent;
+	transition: padding .2s, height .2s;
+}
+
+body.is-scrolled {
+	#header {
+		background-color: var(--color_light-alt);
+		border-color: var(--color_light);
+		height: math.div($layoutHeight_header, 3);
+		padding-top: 0;
+		transition: padding .1s, height .1s;
+		box-shadow: 0 0 2rem rgba(0,0,0,.3);
+		#logo {
+			transform-origin: center right;
+			transform: scale(.5);
+		}
+		.page-title {
+			transform-origin: center left;
+			transform: scale(.4);
+			margin-top: .2rem;
+		}
+	}
 }

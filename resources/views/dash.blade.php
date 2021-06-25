@@ -44,18 +44,21 @@
 		>
 			<div class="content">
 				<div class="title m-b-md">
-					<img
-						alt="Galaxi Cinemas logo"
-						src="/images/logo.png"
-						class="logo"
-						width="220" height="80"
-					/>
+					<h2 class="text-light">One Moment...</h2>
 					<div id="progress-bar"></div>
 				</div>
 			</div>
 		</div>
 		<script>
+			window.system = {
+				csrf: "{{ csrf_token() }}"
+			};
 			document.getElementById('progress-bar').style.width = '100%';
+			document.addEventListener('scroll', function(e) {
+				const scrollPosition = window.scrollY;
+				const hasScrolledEnough = scrollPosition > 20;
+				document.body.classList.toggle('is-scrolled', hasScrolledEnough);
+			});
 		</script>
 		<script src="/js/dash.js"></script>
 	</body>

@@ -2057,7 +2057,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     isOnDark: function isOnDark() {
       var bodyClasses = (0,lodash__WEBPACK_IMPORTED_MODULE_0__.get)(this.$route, 'meta.bodyClasses', []);
-      return bodyClasses.indexOf('bg-dark') >= 0;
+      if (bodyClasses.indexOf('bg-dark') >= 0) return true;
+      if (bodyClasses.indexOf('bg-dark-alt') >= 0) return true;
+      return false;
     }
   },
   methods: {
@@ -20059,12 +20061,11 @@ var staticRenderFns = [
               "a",
               {
                 attrs: {
-                  title:
-                    "Contact details and other information about the theater.",
-                  href: "/about"
+                  title: "Manage the movies and showtimes for this theater.",
+                  href: "/dashboard"
                 }
               },
-              [_vm._v("Theater Info")]
+              [_vm._v("Dashboard")]
             )
           ]),
           _vm._v(" "),
@@ -37118,11 +37119,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _App_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./App.vue */ "./resources/js/web/App.vue");
 /* harmony import */ var _router_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./router.js */ "./resources/js/web/router.js");
 /* harmony import */ var _store_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./store.js */ "./resources/js/web/store.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_4__);
 
 vue__WEBPACK_IMPORTED_MODULE_0__.default.config.productionTip = false;
 
 
 
+
+(axios__WEBPACK_IMPORTED_MODULE_4___default().defaults.headers.common["X-CSRFToken"]) = window.system.csrf;
 new vue__WEBPACK_IMPORTED_MODULE_0__.default({
   el: '#app',
   render: function render(h) {

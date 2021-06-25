@@ -32,6 +32,31 @@
 				</div>
 			</div>
 
+			<display-modal
+				:is-active="showFullDescription"
+				position="bottom"
+				@close="setShowFullDescription(false)"
+			>
+				<h2 class="movie-title">{{ movie.name }}</h2>
+				<p class="my-2">
+					<strong class="movie-rating badge bg-light text-dark">
+						{{ movie.rating }}
+					</strong>
+					<var class="movie-duration">
+						{{ movie.duration }} minutes
+					</var>
+				</p>
+				<div class="movie-summary my-4">
+					{{ movie.description }}
+				</div>
+				<p>
+					<a
+						@click="setShowFullDescription(false)"
+						class="btn btn-primary"
+					>Done</a>
+				</p>
+			</display-modal>
+
 			<div class="bg-light">
 				<div class="container">
 					<ul class="nav nav-tabs">
@@ -64,9 +89,19 @@
 							v-show="activeTab === 'showtimes'"
 							class="tab-pane showtimes"
 						>
-							<display-showtime-list
-								:movie="movie"
-							/>
+							<div
+								class="showtime-day"
+								v-for="(showtimes, date) in movie.showtimes"
+								:key="date"
+							>
+								<h3 class="text-dark mt-5 mb-3" style="font-weight:300">
+									Showtimes for <br><strong>{{ getFriendlyDate(date) }}</strong>
+								</h3>
+								<display-showtime-list
+									:showtimes="showtimes"
+									:duration="movie.duration"
+								/>
+							</div>
 						</div>
 						<div
 							v-show="activeTab === 'reviews'"
@@ -76,33 +111,7 @@
 						</div>
 					</div>
 				</div>
-
 			</div>
-
-			<display-modal
-				:is-active="showFullDescription"
-				position="bottom"
-				@close="setShowFullDescription(false)"
-			>
-				<h2 class="movie-title">{{ movie.name }}</h2>
-				<p class="my-2">
-					<strong class="movie-rating badge bg-light text-dark">
-						{{ movie.rating }}
-					</strong>
-					<var class="movie-duration">
-						{{ movie.duration }} minutes
-					</var>
-				</p>
-				<div class="movie-summary my-4">
-					{{ movie.description }}
-				</div>
-				<p>
-					<a
-						@click="setShowFullDescription(false)"
-						class="btn btn-primary"
-					>Done</a>
-				</p>
-			</display-modal>
 
 		</template>
 
@@ -110,6 +119,8 @@
 
 </template>
 <script>
+
+	import dateHelper from '@helpers/Date.js';
 
 	import { mapActions, mapGetters } from 'vuex';
 	import DisplayModal from '@elements/DisplayModal';
@@ -147,6 +158,9 @@
 			...mapActions('library', [
 				'initMovie'
 			]),
+			getFriendlyDate(date) {
+				return dateHelper.getFriendlyDateFromDate(date);
+			},
 			setActiveTab(activeTab) {
 				this.activeTab = activeTab;
 			},

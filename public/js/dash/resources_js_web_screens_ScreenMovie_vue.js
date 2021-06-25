@@ -228,8 +228,12 @@ __webpack_require__.r(__webpack_exports__);
     DisplayShowtime: _elements_DisplayShowtime__WEBPACK_IMPORTED_MODULE_1__.default
   },
   props: {
-    movie: {
-      type: Object,
+    showtimes: {
+      type: Array,
+      required: true
+    },
+    duration: {
+      type: Number,
       required: true
     }
   },
@@ -244,9 +248,6 @@ __webpack_require__.r(__webpack_exports__);
       if (this.isActive) classes.push('is-active');
       return classes.join(' ');
     },
-    duration: function duration() {
-      return this.movie.duration;
-    },
     hoursInMinutes: function hoursInMinutes() {
       var minutes = [];
       this.hourIncrements.forEach(function (hour) {
@@ -260,9 +261,6 @@ __webpack_require__.r(__webpack_exports__);
         friendly.push(_helpers_Date_js__WEBPACK_IMPORTED_MODULE_0__.default.getFriendlyHourFromTime(hour));
       });
       return friendly;
-    },
-    showtimes: function showtimes() {
-      return this.movie.showtimes;
     },
     showtimeOffsets: function showtimeOffsets() {
       var _this = this;
@@ -295,10 +293,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
-/* harmony import */ var _elements_DisplayModal__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @elements/DisplayModal */ "./resources/js/common/components/elements/DisplayModal.vue");
-/* harmony import */ var _elements_DisplayMoviePoster__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @elements/DisplayMoviePoster */ "./resources/js/common/components/elements/DisplayMoviePoster.vue");
-/* harmony import */ var _elements_DisplayShowtimeList__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @elements/DisplayShowtimeList */ "./resources/js/common/components/elements/DisplayShowtimeList.vue");
+/* harmony import */ var _helpers_Date_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @helpers/Date.js */ "./resources/js/common/helpers/Date.js");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var _elements_DisplayModal__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @elements/DisplayModal */ "./resources/js/common/components/elements/DisplayModal.vue");
+/* harmony import */ var _elements_DisplayMoviePoster__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @elements/DisplayMoviePoster */ "./resources/js/common/components/elements/DisplayMoviePoster.vue");
+/* harmony import */ var _elements_DisplayShowtimeList__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @elements/DisplayShowtimeList */ "./resources/js/common/components/elements/DisplayShowtimeList.vue");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -416,6 +415,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 
 
@@ -423,9 +432,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'ScreenMovie',
   components: {
-    DisplayModal: _elements_DisplayModal__WEBPACK_IMPORTED_MODULE_0__.default,
-    DisplayMoviePoster: _elements_DisplayMoviePoster__WEBPACK_IMPORTED_MODULE_1__.default,
-    DisplayShowtimeList: _elements_DisplayShowtimeList__WEBPACK_IMPORTED_MODULE_2__.default
+    DisplayModal: _elements_DisplayModal__WEBPACK_IMPORTED_MODULE_1__.default,
+    DisplayMoviePoster: _elements_DisplayMoviePoster__WEBPACK_IMPORTED_MODULE_2__.default,
+    DisplayShowtimeList: _elements_DisplayShowtimeList__WEBPACK_IMPORTED_MODULE_3__.default
   },
   props: {
     movieId: {
@@ -439,12 +448,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       showFullDescription: false
     };
   },
-  computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_3__.mapGetters)('library', ['getMovie'])), {}, {
+  computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_4__.mapGetters)('library', ['getMovie'])), {}, {
     movie: function movie() {
       return this.getMovie(this.movieId);
     }
   }),
-  methods: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_3__.mapActions)('library', ['initMovie'])), {}, {
+  methods: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_4__.mapActions)('library', ['initMovie'])), {}, {
+    getFriendlyDate: function getFriendlyDate(date) {
+      return _helpers_Date_js__WEBPACK_IMPORTED_MODULE_0__.default.getFriendlyDateFromDate(date);
+    },
     setActiveTab: function setActiveTab(activeTab) {
       this.activeTab = activeTab;
     },
@@ -487,8 +499,12 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 /*
 
-	Serves as a wrapper for MomentJS library,
-	and collection of date/time utility functions.
+	Several convenience functions below for converting
+	things like 1330 to 1:30pm,
+	or to figure out how many minutes total are in that time.
+
+	Also a wrapper for MomentJS library for the stuff I didn't have time to write out,
+	like figuring out what day of the week a specific date is.
 
 */
 
@@ -498,6 +514,18 @@ var DateHelper = /*#__PURE__*/function () {
   }
 
   _createClass(DateHelper, [{
+    key: "getWeekdayFromDate",
+    value: function getWeekdayFromDate(date) {
+      var m = moment__WEBPACK_IMPORTED_MODULE_0___default()(date);
+      return m.day();
+    }
+  }, {
+    key: "getFriendlyDateFromDate",
+    value: function getFriendlyDateFromDate(date) {
+      var m = moment__WEBPACK_IMPORTED_MODULE_0___default()(date);
+      return m.format('dddd[,] MMMM Do');
+    }
+  }, {
     key: "getHoursInTime",
     value: function getHoursInTime(time) {
       return Math.floor(time / 100);
@@ -516,19 +544,28 @@ var DateHelper = /*#__PURE__*/function () {
       return hours * 60 + minutes;
     }
   }, {
-    key: "getFriendlyTimeFromTime",
-    value: function getFriendlyTimeFromTime(time) {
-      var hours = Math.floor(time / 100);
-      var minutes = time - hours * 100;
-      return hours + ':' + minutes;
+    key: "getSuffixFromTime",
+    value: function getSuffixFromTime(time) {
+      var hours = this.getHoursInTime(time);
+      return hours >= 12 ? 'pm' : 'am';
     }
   }, {
     key: "getFriendlyHourFromTime",
     value: function getFriendlyHourFromTime(time) {
-      var hour = Math.floor(time / 100);
-      var prefix = hour >= 12 ? 'pm' : 'am';
-      var shortHour = hour >= 12 ? hour - 12 : hour;
-      return shortHour === 0 ? 12 + prefix : shortHour + prefix;
+      var hours = this.getHoursInTime(time);
+      var suffix = this.getSuffixFromTime(time);
+      var shortHours = hours >= 12 ? hours - 12 : hours;
+      return shortHours === 0 ? 12 + suffix : shortHours + suffix;
+    }
+  }, {
+    key: "getFriendlyTimeFromTime",
+    value: function getFriendlyTimeFromTime(time) {
+      var hours = this.getHoursInTime(time);
+      var minutes = this.getMinutesInTime(time);
+      var suffix = this.getSuffixFromTime(time);
+      var shortHours = hours >= 12 ? hours - 12 : hours;
+      var filledMinutes = minutes < 10 ? '0' + minutes : '' + minutes;
+      return shortHours + ':' + filledMinutes + suffix;
     }
   }]);
 
@@ -22645,91 +22682,6 @@ var render = function() {
               ])
             ]),
             _vm._v(" "),
-            _c("div", { staticClass: "bg-light" }, [
-              _c("div", { staticClass: "container" }, [
-                _c("ul", { staticClass: "nav nav-tabs" }, [
-                  _c("li", { staticClass: "nav-item" }, [
-                    _c(
-                      "a",
-                      {
-                        class: {
-                          "nav-link": true,
-                          active: _vm.activeTab === "showtimes"
-                        },
-                        on: {
-                          click: function($event) {
-                            return _vm.setActiveTab("showtimes")
-                          }
-                        }
-                      },
-                      [_vm._v("Showtimes")]
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c("li", { staticClass: "nav-item" }, [
-                    _c(
-                      "a",
-                      {
-                        class: {
-                          "nav-link": true,
-                          active: _vm.activeTab === "reviews"
-                        },
-                        on: {
-                          click: function($event) {
-                            return _vm.setActiveTab("reviews")
-                          }
-                        }
-                      },
-                      [_vm._v("Reviews")]
-                    )
-                  ])
-                ])
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "bg-light-alt" }, [
-              _c("div", { staticClass: "container" }, [
-                _c("div", { staticClass: "tab-content" }, [
-                  _c(
-                    "div",
-                    {
-                      directives: [
-                        {
-                          name: "show",
-                          rawName: "v-show",
-                          value: _vm.activeTab === "showtimes",
-                          expression: "activeTab === 'showtimes'"
-                        }
-                      ],
-                      staticClass: "tab-pane showtimes"
-                    },
-                    [
-                      _c("display-showtime-list", {
-                        attrs: { movie: _vm.movie }
-                      })
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    {
-                      directives: [
-                        {
-                          name: "show",
-                          rawName: "v-show",
-                          value: _vm.activeTab === "reviews",
-                          expression: "activeTab === 'reviews'"
-                        }
-                      ],
-                      staticClass: "tab-pane reviews"
-                    },
-                    [_vm._v("\n\t\t\t\t\t\tshowing reviews\n\t\t\t\t\t")]
-                  )
-                ])
-              ])
-            ]),
-            _vm._v(" "),
             _c(
               "display-modal",
               {
@@ -22789,7 +22741,117 @@ var render = function() {
                   )
                 ])
               ]
-            )
+            ),
+            _vm._v(" "),
+            _c("div", { staticClass: "bg-light" }, [
+              _c("div", { staticClass: "container" }, [
+                _c("ul", { staticClass: "nav nav-tabs" }, [
+                  _c("li", { staticClass: "nav-item" }, [
+                    _c(
+                      "a",
+                      {
+                        class: {
+                          "nav-link": true,
+                          active: _vm.activeTab === "showtimes"
+                        },
+                        on: {
+                          click: function($event) {
+                            return _vm.setActiveTab("showtimes")
+                          }
+                        }
+                      },
+                      [_vm._v("Showtimes")]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("li", { staticClass: "nav-item" }, [
+                    _c(
+                      "a",
+                      {
+                        class: {
+                          "nav-link": true,
+                          active: _vm.activeTab === "reviews"
+                        },
+                        on: {
+                          click: function($event) {
+                            return _vm.setActiveTab("reviews")
+                          }
+                        }
+                      },
+                      [_vm._v("Reviews")]
+                    )
+                  ])
+                ])
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "bg-light-alt" }, [
+              _c("div", { staticClass: "container" }, [
+                _c("div", { staticClass: "tab-content" }, [
+                  _c(
+                    "div",
+                    {
+                      directives: [
+                        {
+                          name: "show",
+                          rawName: "v-show",
+                          value: _vm.activeTab === "showtimes",
+                          expression: "activeTab === 'showtimes'"
+                        }
+                      ],
+                      staticClass: "tab-pane showtimes"
+                    },
+                    _vm._l(_vm.movie.showtimes, function(showtimes, date) {
+                      return _c(
+                        "div",
+                        { key: date, staticClass: "showtime-day" },
+                        [
+                          _c(
+                            "h3",
+                            {
+                              staticClass: "text-dark mt-5 mb-3",
+                              staticStyle: { "font-weight": "300" }
+                            },
+                            [
+                              _vm._v("\n\t\t\t\t\t\t\t\tShowtimes for "),
+                              _c("br"),
+                              _c("strong", [
+                                _vm._v(_vm._s(_vm.getFriendlyDate(date)))
+                              ])
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c("display-showtime-list", {
+                            attrs: {
+                              showtimes: showtimes,
+                              duration: _vm.movie.duration
+                            }
+                          })
+                        ],
+                        1
+                      )
+                    }),
+                    0
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      directives: [
+                        {
+                          name: "show",
+                          rawName: "v-show",
+                          value: _vm.activeTab === "reviews",
+                          expression: "activeTab === 'reviews'"
+                        }
+                      ],
+                      staticClass: "tab-pane reviews"
+                    },
+                    [_vm._v("\n\t\t\t\t\t\tshowing reviews\n\t\t\t\t\t")]
+                  )
+                ])
+              ])
+            ])
           ]
     ],
     2

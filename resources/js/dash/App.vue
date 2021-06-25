@@ -1,6 +1,6 @@
 <template>
 	<div :class="bodyClasses">
-		<the-header id="header" />
+		<the-header />
 		<main id="main">
 			<router-view />
 		</main>
@@ -9,13 +9,14 @@
 </template>
 <script>
 
+	import { mapActions } from 'vuex';
 	import { get } from 'lodash';
 
-	import TheHeader from '@elements/TheHeader.vue';
+	import TheHeader from '@dash/components/elements/TheHeader.vue';
 	import TheFooter from '@elements/TheFooter.vue';
 
 	const _defaultBodyClasses = [
-		'bg-light-alt', 'text-dark'
+		'bg-dark', 'text-light'
 	];
 	
 	export default {
@@ -27,11 +28,21 @@
 		computed: {
 			bodyClasses() {
 				return [
-					'body-wrap',
 					...get(this.$route, 'meta.bodyClasses', _defaultBodyClasses)
 				];
-
 			}
+		},
+		methods: {
+			...mapActions('account', [
+				'initUser'
+			])
+		},
+		created() {
+			this.initUser()
+			.then(userResult => {
+				if(userResult === false)
+					this.$router.push('/login');
+			});
 		}
 	}
 

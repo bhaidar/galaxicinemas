@@ -1,10 +1,39 @@
 <?php
 
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
-Route::middleware('auth:api')->get('/api/user', function (Request $request) {
-	return $request->user();
+Route::post('/authenticate', function (Request $request) {
+	
+	$credentials = $request->validate([
+		'username' => ['required'],
+		'password' => ['required']
+	]);
+
+	if(Auth::attempt($credentials)) {
+		// $user = User::where('username', $request->input('username'))->first();
+		// $token = $user->createToken('Galaxi Password Grant Client')->accessToken;
+		$token = $request->user()->createToken('Galaxi Password Grant Client');
+	    return ['token' => $token->plainTextToken];
+	//	$response = ['token' => $token];
+//		return response($response, 200);
+	}
+
+	return response(['message' => 'That did not work.'], 422);
+
+});
+
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+	return response(['user' => $request->user()], 200);
+});
+
+Route::get('/logout', function (Request $request) {
+	$user = $request->user();
+	if($user)
+		$user->currentAccessToken()->delete();
+	return response(['user' => null], 200);
 });
 
 Route::get('/movie/{movie_id}', function (Request $request, $movie_id) {
@@ -19,8 +48,30 @@ Route::get('/movie/{movie_id}', function (Request $request, $movie_id) {
 			'duration' => 123,
 			'release_date' => '2021-01-01',
 			'showtimes' => [
-				1115,
-				1400
+				'2021-06-24' => [
+					1115,
+					1400
+				],
+				'2021-06-25' => [
+					1115,
+					1400
+				],
+				'2021-06-26' => [
+					1115,
+					1400,
+					1715,
+					2000
+				],
+				'2021-06-27' => [
+					1115,
+					1400,
+					1715,
+					2000
+				],
+				'2021-06-29' => [
+					1115,
+					1400
+				]
 			]
 		],
 
@@ -32,12 +83,30 @@ Route::get('/movie/{movie_id}', function (Request $request, $movie_id) {
 			'duration' => 110,
 			'release_date' => '2021-02-01',
 			'showtimes' => [
-				1230,
-				1430,
-				1630,
-				1830,
-				2030,
-				2230
+				'2021-06-24' => [
+					1115,
+					1400
+				],
+				'2021-06-25' => [
+					1115,
+					1400
+				],
+				'2021-06-26' => [
+					1115,
+					1400,
+					1715,
+					2000
+				],
+				'2021-06-27' => [
+					1115,
+					1400,
+					1715,
+					2000
+				],
+				'2021-06-29' => [
+					1115,
+					1400
+				]
 			]
 		],
 
@@ -49,10 +118,30 @@ Route::get('/movie/{movie_id}', function (Request $request, $movie_id) {
 			'duration' => 144,
 			'release_date' => '2021-03-01',
 			'showtimes' => [
-				1200,
-				1500,
-				1800,
-				2100
+				'2021-06-24' => [
+					1115,
+					1400
+				],
+				'2021-06-25' => [
+					1115,
+					1400
+				],
+				'2021-06-26' => [
+					1115,
+					1400,
+					1715,
+					2000
+				],
+				'2021-06-27' => [
+					1115,
+					1400,
+					1715,
+					2000
+				],
+				'2021-06-29' => [
+					1115,
+					1400
+				]
 			]
 		],
 
@@ -64,10 +153,30 @@ Route::get('/movie/{movie_id}', function (Request $request, $movie_id) {
 			'duration' => 140,
 			'release_date' => '2021-05-01',
 			'showtimes' => [
-				1115,
-				1345,
-				1615,
-				1845
+				'2021-06-24' => [
+					1115,
+					1400
+				],
+				'2021-06-25' => [
+					1115,
+					1400
+				],
+				'2021-06-26' => [
+					1115,
+					1400,
+					1715,
+					2000
+				],
+				'2021-06-27' => [
+					1115,
+					1400,
+					1715,
+					2000
+				],
+				'2021-06-29' => [
+					1115,
+					1400
+				]
 			]
 		],
 
@@ -112,8 +221,30 @@ Route::get('/movies/coming-soon', function (Request $request) {
 			'duration' => 123,
 			'release_date' => '2021-01-01',
 			'showtimes' => [
-				1115,
-				1400
+				'2021-06-24' => [
+					1115,
+					1400
+				],
+				'2021-06-25' => [
+					1115,
+					1400
+				],
+				'2021-06-26' => [
+					1115,
+					1400,
+					1715,
+					2000
+				],
+				'2021-06-27' => [
+					1115,
+					1400,
+					1715,
+					2000
+				],
+				'2021-06-29' => [
+					1115,
+					1400
+				]
 			]
 		],
 
@@ -125,12 +256,30 @@ Route::get('/movies/coming-soon', function (Request $request) {
 			'duration' => 110,
 			'release_date' => '2021-02-01',
 			'showtimes' => [
-				1230,
-				1430,
-				1630,
-				1830,
-				2030,
-				2230
+				'2021-06-24' => [
+					1115,
+					1400
+				],
+				'2021-06-25' => [
+					1115,
+					1400
+				],
+				'2021-06-26' => [
+					1115,
+					1400,
+					1715,
+					2000
+				],
+				'2021-06-27' => [
+					1115,
+					1400,
+					1715,
+					2000
+				],
+				'2021-06-29' => [
+					1115,
+					1400
+				]
 			]
 		],
 
@@ -142,10 +291,30 @@ Route::get('/movies/coming-soon', function (Request $request) {
 			'duration' => 144,
 			'release_date' => '2021-03-01',
 			'showtimes' => [
-				1200,
-				1500,
-				1800,
-				2100
+				'2021-06-24' => [
+					1115,
+					1400
+				],
+				'2021-06-25' => [
+					1115,
+					1400
+				],
+				'2021-06-26' => [
+					1115,
+					1400,
+					1715,
+					2000
+				],
+				'2021-06-27' => [
+					1115,
+					1400,
+					1715,
+					2000
+				],
+				'2021-06-29' => [
+					1115,
+					1400
+				]
 			]
 		],
 
@@ -157,10 +326,30 @@ Route::get('/movies/coming-soon', function (Request $request) {
 			'duration' => 140,
 			'release_date' => '2021-05-01',
 			'showtimes' => [
-				1115,
-				1345,
-				1615,
-				1845
+				'2021-06-24' => [
+					1115,
+					1400
+				],
+				'2021-06-25' => [
+					1115,
+					1400
+				],
+				'2021-06-26' => [
+					1115,
+					1400,
+					1715,
+					2000
+				],
+				'2021-06-27' => [
+					1115,
+					1400,
+					1715,
+					2000
+				],
+				'2021-06-29' => [
+					1115,
+					1400
+				]
 			]
 		],
 
@@ -205,8 +394,30 @@ Route::get('/movies/now-playing', function (Request $request) {
 			'duration' => 123,
 			'release_date' => '2021-01-01',
 			'showtimes' => [
-				1115,
-				1400
+				'2021-06-24' => [
+					1115,
+					1400
+				],
+				'2021-06-25' => [
+					1115,
+					1400
+				],
+				'2021-06-26' => [
+					1115,
+					1400,
+					1715,
+					2000
+				],
+				'2021-06-27' => [
+					1115,
+					1400,
+					1715,
+					2000
+				],
+				'2021-06-29' => [
+					1115,
+					1400
+				]
 			]
 		],
 
@@ -218,12 +429,30 @@ Route::get('/movies/now-playing', function (Request $request) {
 			'duration' => 110,
 			'release_date' => '2021-02-01',
 			'showtimes' => [
-				1230,
-				1430,
-				1630,
-				1830,
-				2030,
-				2230
+				'2021-06-24' => [
+					1115,
+					1400
+				],
+				'2021-06-25' => [
+					1115,
+					1400
+				],
+				'2021-06-26' => [
+					1115,
+					1400,
+					1715,
+					2000
+				],
+				'2021-06-27' => [
+					1115,
+					1400,
+					1715,
+					2000
+				],
+				'2021-06-29' => [
+					1115,
+					1400
+				]
 			]
 		],
 
@@ -235,10 +464,30 @@ Route::get('/movies/now-playing', function (Request $request) {
 			'duration' => 144,
 			'release_date' => '2021-03-01',
 			'showtimes' => [
-				1200,
-				1500,
-				1800,
-				2100
+				'2021-06-24' => [
+					1115,
+					1400
+				],
+				'2021-06-25' => [
+					1115,
+					1400
+				],
+				'2021-06-26' => [
+					1115,
+					1400,
+					1715,
+					2000
+				],
+				'2021-06-27' => [
+					1115,
+					1400,
+					1715,
+					2000
+				],
+				'2021-06-29' => [
+					1115,
+					1400
+				]
 			]
 		],
 
@@ -250,10 +499,30 @@ Route::get('/movies/now-playing', function (Request $request) {
 			'duration' => 140,
 			'release_date' => '2021-05-01',
 			'showtimes' => [
-				1115,
-				1345,
-				1615,
-				1845
+				'2021-06-24' => [
+					1115,
+					1400
+				],
+				'2021-06-25' => [
+					1115,
+					1400
+				],
+				'2021-06-26' => [
+					1115,
+					1400,
+					1715,
+					2000
+				],
+				'2021-06-27' => [
+					1115,
+					1400,
+					1715,
+					2000
+				],
+				'2021-06-29' => [
+					1115,
+					1400
+				]
 			]
 		],
 

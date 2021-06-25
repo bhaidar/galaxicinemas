@@ -2,8 +2,12 @@ import moment from 'moment';
 
 /*
 
-	Serves as a wrapper for MomentJS library,
-	and collection of date/time utility functions.
+	Several convenience functions below for converting
+	things like 1330 to 1:30pm,
+	or to figure out how many minutes total are in that time.
+
+	Also a wrapper for MomentJS library for the stuff I didn't have time to write out,
+	like figuring out what day of the week a specific date is.
 
 */
 
@@ -11,6 +15,16 @@ class DateHelper {
 
 	constructor() {
 		
+	}
+
+	getWeekdayFromDate(date) {
+		const m = moment(date);
+		return m.day();
+	}
+
+	getFriendlyDateFromDate(date) {
+		const m = moment(date);
+		return m.format('dddd[,] MMMM Do');
 	}
 
 	getHoursInTime(time) {
@@ -28,17 +42,25 @@ class DateHelper {
 		return (hours * 60) + minutes;
 	}
 
-	getFriendlyTimeFromTime(time) {
-		const hours = Math.floor(time/100);
-		const minutes = time - (hours*100);
-		return hours +':'+ minutes;
+	getSuffixFromTime(time) {
+		const hours = this.getHoursInTime(time);
+		return hours >= 12 ? 'pm' : 'am';
 	}
 
 	getFriendlyHourFromTime(time) {
-		const hour = Math.floor(time/100);
-		const prefix = hour >= 12 ? 'pm' : 'am';
-		const shortHour = hour >= 12 ? hour - 12 : hour;
-		return shortHour === 0 ? 12+prefix : shortHour+prefix;
+		const hours = this.getHoursInTime(time);
+		const suffix = this.getSuffixFromTime(time);
+		const shortHours = hours >= 12 ? hours - 12 : hours;
+		return shortHours === 0 ? 12+suffix : shortHours+suffix;
+	}
+
+	getFriendlyTimeFromTime(time) {
+		const hours = this.getHoursInTime(time);
+		const minutes = this.getMinutesInTime(time);
+		const suffix = this.getSuffixFromTime(time);
+		const shortHours = hours >= 12 ? hours - 12 : hours;
+		const filledMinutes = minutes < 10 ? '0'+minutes : ''+minutes;
+		return shortHours +':'+ filledMinutes+suffix;
 	}
 
 }
