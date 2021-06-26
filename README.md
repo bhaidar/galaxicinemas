@@ -51,7 +51,7 @@ Website and Management tool for movie theaters.
 There are quite a few known issues, so I will mention the serious ones.
 - images don't get resized so you should shoot for `280x400` for them to look good
 - the layout is currently a little too big for really small screens
-- there is basically no optimization in place, like image sizes (again) and caching
 - form validation is very rudimentary, and I'm sure it's possible to get 500 errors from the api
-- I spend a lot of time studying Laravel 8 (hadn't used it before) so sorry for any weird stuff there
-- the whole thing is pretty rushed!
+- deleting movies in the dashboard does not work
+- the replace image button doesn't work when editing a movie
+- when you create a movie, an error comes back from the API which breaks the flow. the movie WAS created, you just have to go back to the list to see it
