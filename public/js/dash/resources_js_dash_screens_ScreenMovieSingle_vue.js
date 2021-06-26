@@ -1500,10 +1500,7 @@ var _emptyMovie = function _emptyMovie() {
         id: this.movieId || null
       });
       this.saveMovie(movieData).then(function (result) {
-        if (result) {
-          _this3.storedMovie = _this3.getMovie(_this3.movieId);
-          if (_this3.storedMovie.id) _this3.$router.push('/movies');else console.error('Save movie missing ID.', result);
-        } else console.error('Save movie encountered an error.', result);
+        if (result) _this3.$router.push('/movies');else console.error('Save movie encountered an error.', result);
       });
     }
   })
@@ -24687,23 +24684,6 @@ var render = function() {
                 staticClass: "btn-group"
               },
               [
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-primary btn-sm",
-                    attrs: { type: "button" },
-                    on: {
-                      click: function($event) {
-                        $event.stopPropagation()
-                        return function($event) {
-                          return _vm.$emit("click", $event)
-                        }.apply(null, arguments)
-                      }
-                    }
-                  },
-                  [_vm._v("\n\t\t\t\tReplace\n\t\t\t")]
-                ),
-                _vm._v(" "),
                 _c(
                   "button",
                   {
