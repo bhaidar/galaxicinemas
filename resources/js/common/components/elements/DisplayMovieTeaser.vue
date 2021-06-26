@@ -1,14 +1,14 @@
 <template>
-	<div class="movie movie-teaser">
+	<div :class="movieTeaserClasses">
 
 		<display-movie-poster
 			:movie="movie"
 		/>
 
 		<template v-if="showTitles">
-			<h3 class="movie-title">
+			<h4 class="movie-title">
 				{{ movie.name }}
-			</h3>
+			</h4>
 			<p>
 				<strong class="movie-rating badge bg-light text-dark">
 					{{ movie.rating }}
@@ -31,6 +31,10 @@
 			DisplayMoviePoster
 		},
 		props: {
+			interactive: {
+				type: Boolean,
+				default: true
+			},
 			movie: {
 				type: Object,
 				required: true
@@ -38,6 +42,14 @@
 			showTitles: {
 				type: Boolean,
 				default: true
+			}
+		},
+		computed: {
+			movieTeaserClasses() {
+				const list = ['movie', 'movie-teaser'];
+				if(this.interactive)
+					list.push('interactive');
+				return list.join(' ');
 			}
 		}
 	}

@@ -11,9 +11,15 @@ const router = new VueRouter({
 
 		{
 			path: '/',
-			component: () => import('./screens/ScreenIndex')
+			component: () => import('./screens/ScreenIndex'),
+			redirect: '/movies'
 		},
 
+		{
+			path: '/not-found',
+			component: () => import('./screens/Screen404')
+		},
+		
 		{
 			name: 'login',
 			path: '/login',
@@ -29,9 +35,9 @@ const router = new VueRouter({
 		},
 		
 		{
-			path: '/movie/:movieId',
+			path: '/movie/:movieId?',
 			component: () => import('./screens/ScreenMovieSingle'),
-			params: true
+			props: true
 		},
 		
 		{

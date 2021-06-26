@@ -17,6 +17,10 @@ class DateHelper {
 		
 	}
 
+	getToday() {
+		return new Date().toISOString().slice(0, 10);
+	}
+
 	getWeekdayFromDate(date) {
 		const m = moment(date);
 		return m.day();

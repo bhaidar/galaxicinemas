@@ -16,7 +16,7 @@
 	import TheFooter from '@elements/TheFooter.vue';
 
 	const _defaultBodyClasses = [
-		'bg-dark', 'text-light'
+		'text-dark'
 	];
 	
 	export default {

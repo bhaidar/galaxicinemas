@@ -31,14 +31,16 @@
 @import "../../../node_modules/bootstrap/scss/card";
 @import "../../../node_modules/bootstrap/scss/containers";
 @import "../../../node_modules/bootstrap/scss/forms";
+@import "../../../node_modules/bootstrap/scss/grid";
 @import "../../../node_modules/bootstrap/scss/images";
 @import "../../../node_modules/bootstrap/scss/list-group";
 @import "../../../node_modules/bootstrap/scss/navbar";
 @import "../../../node_modules/bootstrap/scss/type";
 @import "../../../node_modules/bootstrap/scss/utilities";
+@import "../../../node_modules/bootstrap/scss/utilities/api";
 
 body {
-	background-color: var(--color_dark);
+	background-color: var(--color_light);
 }
 
 .collapse {
@@ -64,12 +66,27 @@ body {
 	margin: 0 auto;
 }
 
-#footer {
-	a {
-		color: var(--color_light) !important;
+.media {
+	display: flex;
+	align-contents: center;
+	.media-content {
+		flex-grow: 1;
+		margin-left: 2rem;
 	}
 }
 
-.w-100 {
-	width: 100% !important;
+.form-check-input:checked {
+	background-color: var(--color_primary) !important;
+	border-color: var(--color_primary) !important;
 }
+
+.file-chooser {
+	position: relative;
+	border: 0;
+	.btn.btn-overlay {
+		position: absolute;
+		top: 0; left: 0;
+		pointer-events: none;
+	}
+}
+

@@ -14,6 +14,7 @@ mix.js('resources/js/dash/index.js', 'public/js/dash.js')
 				'@dash': path.resolve(__dirname, 'resources/js/dash'),
 				'@web': path.resolve(__dirname, 'resources/js/web'),
 				'@editors': path.resolve(__dirname, 'resources/js/common/components/editors'),
+				'@mixins': path.resolve(__dirname, 'resources/js/common/mixins'),
 				'@elements': path.resolve(__dirname, 'resources/js/common/components/elements'),
 				'@helpers': path.resolve(__dirname, 'resources/js/common/helpers')
 			}

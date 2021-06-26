@@ -7,15 +7,21 @@
 			:for="id"
 			class="form-label"
 		>
-			{{ label }}
+			{{ label }}{{ isRequired ? '*' : '' }}
 		</label>
 
 		<input
 			:id="id"
 			ref="input"
-			type="password"
-			class="form-control"
+			type="datetime"
+			:class="formControlClasses"
 			v-model="inputValue"
+		/>
+
+		<display-form-feedback
+			:help="help"
+			:error="error"
+			:warning="warning"
 		/>
 
 	</div>
@@ -23,31 +29,27 @@
 </template>
 <script>
 
+	import IncludeEditorDefaults from '@mixins/IncludeEditorDefaults.js';
+
 	export default {
 
-		name: 'EditorPassword',
+		name: 'EditorDatetime',
+
+		mixins: [
+			IncludeEditorDefaults
+		],
 
 		props: {
 
-			label: {
-				type: String,
-				default: null
-			},
-
 			value: {
 				type: String,
-				default: ''
+				default: null
 			}
 
-		},
-
-		data() {
-			return {
-				id: null
-			}
 		},
 
 		computed: {
+
 			inputValue: {
 				get() {
 					return this.value;
@@ -56,10 +58,7 @@
 					this.$emit('input', newVal);
 				}
 			}
-		},
 
-		mounted() {
-			this.id = this._uid;
 		}
 
 	}

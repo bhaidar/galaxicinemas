@@ -42,5 +42,10 @@
 		}
 	}
 
+}
 
+.btn-group {
+	.btn + .btn {
+		margin-left: 1px !important;
+	}
 }

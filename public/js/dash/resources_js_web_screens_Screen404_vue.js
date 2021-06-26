@@ -84,6 +84,10 @@ __webpack_require__.r(__webpack_exports__);
     DisplayMoviePoster: _elements_DisplayMoviePoster__WEBPACK_IMPORTED_MODULE_0__.default
   },
   props: {
+    interactive: {
+      type: Boolean,
+      "default": true
+    },
     movie: {
       type: Object,
       required: true
@@ -91,6 +95,13 @@ __webpack_require__.r(__webpack_exports__);
     showTitles: {
       type: Boolean,
       "default": true
+    }
+  },
+  computed: {
+    movieTeaserClasses: function movieTeaserClasses() {
+      var list = ['movie', 'movie-teaser'];
+      if (this.interactive) list.push('interactive');
+      return list.join(' ');
     }
   }
 });
@@ -381,7 +392,7 @@ var render = function() {
     _c("img", {
       attrs: {
         alt: "Movie poster for " + _vm.movie.name + ".",
-        src: "/images/" + _vm.movie.id + ".jpg",
+        src: "/storage/" + _vm.movie.poster,
         width: _vm.width,
         height: _vm.height
       }
@@ -413,13 +424,13 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "movie movie-teaser" },
+    { class: _vm.movieTeaserClasses },
     [
       _c("display-movie-poster", { attrs: { movie: _vm.movie } }),
       _vm._v(" "),
       _vm.showTitles
         ? [
-            _c("h3", { staticClass: "movie-title" }, [
+            _c("h4", { staticClass: "movie-title" }, [
               _vm._v("\n\t\t\t" + _vm._s(_vm.movie.name) + "\n\t\t")
             ]),
             _vm._v(" "),

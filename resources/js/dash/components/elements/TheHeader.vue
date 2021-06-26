@@ -1,7 +1,7 @@
 <template>
 	<header v-show="!isLoggingIn">
 		<nav class="navbar navbar-expand-sm navbar-dark bg-dark-alt">
-			<div class="container-fluid">
+			<div class="container">
 				<router-link
 					class="navbar-brand"
 					:to="{
@@ -37,6 +37,7 @@
 						<li class="nav-item">
 							<router-link
 								class="nav-link"
+								active-class="active"
 								:to="{
 									path: '/movies'
 								}"
@@ -47,6 +48,7 @@
 						<li class="nav-item">
 							<router-link
 								class="nav-link"
+								active-class="active"
 								:to="{
 									path: '/settings'
 								}"
@@ -57,6 +59,7 @@
 						<li class="nav-item ms-auto">
 							<a
 								class="nav-link"
+								active-class="active"
 								@click="logout"
 							>
 								Logout

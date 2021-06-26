@@ -424,6 +424,58 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -514,6 +566,11 @@ var DateHelper = /*#__PURE__*/function () {
   }
 
   _createClass(DateHelper, [{
+    key: "getToday",
+    value: function getToday() {
+      return new Date().toISOString().slice(0, 10);
+    }
+  }, {
     key: "getWeekdayFromDate",
     value: function getWeekdayFromDate(date) {
       var m = moment__WEBPACK_IMPORTED_MODULE_0___default()(date);
@@ -22438,7 +22495,7 @@ var render = function() {
     _c("img", {
       attrs: {
         alt: "Movie poster for " + _vm.movie.name + ".",
-        src: "/images/" + _vm.movie.id + ".jpg",
+        src: "/storage/" + _vm.movie.poster,
         width: _vm.width,
         height: _vm.height
       }
@@ -22662,19 +22719,30 @@ var render = function() {
                         ])
                       ]),
                       _vm._v(" "),
-                      _c("p", [
-                        _c(
-                          "a",
-                          {
-                            on: {
-                              click: function($event) {
-                                return _vm.setShowFullDescription(true)
+                      _c(
+                        "p",
+                        [
+                          _c(
+                            "a",
+                            {
+                              on: {
+                                click: function($event) {
+                                  return _vm.setShowFullDescription(true)
+                                }
                               }
-                            }
-                          },
-                          [_vm._v("Full Description")]
-                        )
-                      ])
+                            },
+                            [_vm._v("Full Description")]
+                          ),
+                          _vm._v(" "),
+                          _c("br"),
+                          _c(
+                            "router-link",
+                            { attrs: { to: { path: "/movies" } } },
+                            [_vm._v("Go Back")]
+                          )
+                        ],
+                        1
+                      )
                     ])
                   ],
                   1
@@ -22721,9 +22789,19 @@ var render = function() {
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "movie-summary my-4" }, [
-                  _vm._v(
-                    "\n\t\t\t\t" + _vm._s(_vm.movie.description) + "\n\t\t\t"
-                  )
+                  _c("p", { staticClass: "my-0" }, [
+                    _vm._v("Directed by "),
+                    _c("strong", [_vm._v(_vm._s(_vm.movie.director))])
+                  ]),
+                  _vm._v(" "),
+                  _c("p", { staticClass: "my-0" }, [
+                    _vm._v("Starring "),
+                    _c("strong", [_vm._v(_vm._s(_vm.movie.cast))])
+                  ]),
+                  _vm._v(" "),
+                  _c("p", { staticClass: "mt-3 mb-5" }, [
+                    _vm._v(_vm._s(_vm.movie.description))
+                  ])
                 ]),
                 _vm._v(" "),
                 _c("p", [
@@ -22847,7 +22925,15 @@ var render = function() {
                       ],
                       staticClass: "tab-pane reviews"
                     },
-                    [_vm._v("\n\t\t\t\t\t\tshowing reviews\n\t\t\t\t\t")]
+                    [
+                      _vm._m(0),
+                      _vm._v(" "),
+                      _vm._m(1),
+                      _vm._v(" "),
+                      _c("button", { staticClass: "btn btn-primary" }, [
+                        _vm._v("\n\t\t\t\t\t\t\tAdd Your Review\n\t\t\t\t\t\t")
+                      ])
+                    ]
                   )
                 ])
               ])
@@ -22857,7 +22943,96 @@ var render = function() {
     2
   )
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "h3",
+      {
+        staticClass: "text-dark mt-5 mb-3",
+        staticStyle: { "font-weight": "300" }
+      },
+      [
+        _c("strong", [_vm._v("12 Reviews")]),
+        _vm._v(" by the Community\n\t\t\t\t\t\t")
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("ul", { staticClass: "list-group" }, [
+      _c("li", { staticClass: "list-group-item my-4" }, [
+        _c("p", [
+          _vm._v(
+            '\n\t\t\t\t\t\t\t\t\t"Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?"\n\t\t\t\t\t\t\t\t'
+          )
+        ]),
+        _vm._v(" "),
+        _c("p", { staticClass: "mt-3 mb-0 text-dark" }, [
+          _c("strong", [_vm._v("Somebody said")])
+        ]),
+        _vm._v(" "),
+        _c("p", { staticClass: "mt-1 mb-3" }, [
+          _c("small", [
+            _vm._v(
+              "\n\t\t\t\t\t\t\t\t\t\tThursday, June 24, 2021\n\t\t\t\t\t\t\t\t\t\t"
+            ),
+            _c("br"),
+            _vm._v("8:40pm\n\t\t\t\t\t\t\t\t\t")
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("li", { staticClass: "list-group-item my-4" }, [
+        _c("p", [
+          _vm._v(
+            '\n\t\t\t\t\t\t\t\t\t"Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?"\n\t\t\t\t\t\t\t\t'
+          )
+        ]),
+        _vm._v(" "),
+        _c("p", { staticClass: "mt-3 mb-0 text-dark" }, [
+          _c("strong", [_vm._v("Somebody said")])
+        ]),
+        _vm._v(" "),
+        _c("p", { staticClass: "mt-1 mb-3" }, [
+          _c("small", [
+            _vm._v(
+              "\n\t\t\t\t\t\t\t\t\t\tThursday, June 24, 2021\n\t\t\t\t\t\t\t\t\t\t"
+            ),
+            _c("br"),
+            _vm._v("8:40pm\n\t\t\t\t\t\t\t\t\t")
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("li", { staticClass: "list-group-item my-4" }, [
+        _c("p", [
+          _vm._v(
+            '\n\t\t\t\t\t\t\t\t\t"Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?"\n\t\t\t\t\t\t\t\t'
+          )
+        ]),
+        _vm._v(" "),
+        _c("p", { staticClass: "mt-3 mb-0 text-dark" }, [
+          _c("strong", [_vm._v("Somebody said")])
+        ]),
+        _vm._v(" "),
+        _c("p", { staticClass: "mt-1 mb-3" }, [
+          _c("small", [
+            _vm._v(
+              "\n\t\t\t\t\t\t\t\t\t\tThursday, June 24, 2021\n\t\t\t\t\t\t\t\t\t\t"
+            ),
+            _c("br"),
+            _vm._v("8:40pm\n\t\t\t\t\t\t\t\t\t")
+          ])
+        ])
+      ])
+    ])
+  }
+]
 render._withStripped = true
 
 

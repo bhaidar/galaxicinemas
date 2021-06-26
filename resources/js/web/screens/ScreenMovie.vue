@@ -26,6 +26,7 @@
 							</p>
 							<p>
 								<a @click="setShowFullDescription(true)">Full Description</a>
+								<br><router-link :to="{ path: '/movies' }">Go Back</router-link>
 							</P>
 						</div>
 					</div>
@@ -47,7 +48,9 @@
 					</var>
 				</p>
 				<div class="movie-summary my-4">
-					{{ movie.description }}
+					<p class="my-0">Directed by <strong>{{ movie.director }}</strong></p>
+					<p class="my-0">Starring <strong>{{ movie.cast }}</strong></p>
+					<p class="mt-3 mb-5">{{ movie.description }}</p>
 				</div>
 				<p>
 					<a
@@ -107,7 +110,56 @@
 							v-show="activeTab === 'reviews'"
 							class="tab-pane reviews"
 						>
-							showing reviews
+							<h3 class="text-dark mt-5 mb-3" style="font-weight:300">
+								<strong>12 Reviews</strong> by the Community
+							</h3>
+							<ul class="list-group">
+								<li class="list-group-item my-4">
+									<p>
+										"Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?"
+									</p>
+									<p class="mt-3 mb-0 text-dark">
+										<strong>Somebody said</strong>
+									</p>
+									<p class="mt-1 mb-3">
+										<small>
+											Thursday, June 24, 2021
+											<br>8:40pm
+										</small>
+									</p>
+								</li>
+								<li class="list-group-item my-4">
+									<p>
+										"Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?"
+									</p>
+									<p class="mt-3 mb-0 text-dark">
+										<strong>Somebody said</strong>
+									</p>
+									<p class="mt-1 mb-3">
+										<small>
+											Thursday, June 24, 2021
+											<br>8:40pm
+										</small>
+									</p>
+								</li>
+								<li class="list-group-item my-4">
+									<p>
+										"Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?"
+									</p>
+									<p class="mt-3 mb-0 text-dark">
+										<strong>Somebody said</strong>
+									</p>
+									<p class="mt-1 mb-3">
+										<small>
+											Thursday, June 24, 2021
+											<br>8:40pm
+										</small>
+									</p>
+								</li>
+							</ul>
+							<button class="btn btn-primary">
+								Add Your Review
+							</button>
 						</div>
 					</div>
 				</div>

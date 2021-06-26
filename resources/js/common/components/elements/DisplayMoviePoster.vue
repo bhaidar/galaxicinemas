@@ -2,7 +2,7 @@
 	<figure class="movie-poster">
 		<img
 			:alt="'Movie poster for '+movie.name+'.'"
-			:src="'/images/'+movie.id+'.jpg'"
+			:src="'/storage/'+movie.poster"
 			:width="width" :height="height"
 		/>
 	</figure>

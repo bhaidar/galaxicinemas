@@ -6,6 +6,10 @@ Route::get('/dashboard', function () {
 	return view('dash');
 });
 
+Route::get('/dashboard/movie/{movie_id}', function () {
+	return view('dash');
+});
+
 Route::get('/dashboard/{any}', function () {
 	return view('dash');
 });

@@ -12,6 +12,7 @@
 			>
 				<display-movie-teaser
 					:movie="movie"
+					:interactive="false"
 				/>
 			</li>
 

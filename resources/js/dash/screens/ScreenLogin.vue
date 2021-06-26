@@ -10,14 +10,15 @@
 				/>
 			</div>
 
-			<editor-username
+			<editor-string
 				label="Username"
 				v-model="inputUsername"
 			/>
 
-			<editor-password
+			<editor-string
 				label="Password"
 				v-model="inputPassword"
+				type="password"
 			/>
 
 			<button
@@ -32,8 +33,7 @@
 
 	import { mapActions } from 'vuex';
 
-	import EditorPassword from '@editors/EditorPassword';
-	import EditorUsername from '@editors/EditorUsername';
+	import EditorString from '@editors/base/EditorString';
 	import TheLogo from '@elements/TheLogo';
 
 	export default {
@@ -41,8 +41,7 @@
 		name: 'ScreenLogin',
 
 		components: {
-			EditorPassword,
-			EditorUsername,
+			EditorString,
 			TheLogo
 		},
 

@@ -117,9 +117,9 @@ body {
 			& > a {
 				display: inline-block;
 				padding: 0 .5rem;
-				color: var(--color_dark);
+				color: var(--color_contrast);
 				&:active, &:focus, &:hover {
-					color: var(--color_primary);
+					background: var(--color_dark-alt);
 				}
 			}
 

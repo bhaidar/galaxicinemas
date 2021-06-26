@@ -84,6 +84,10 @@ __webpack_require__.r(__webpack_exports__);
     DisplayMoviePoster: _elements_DisplayMoviePoster__WEBPACK_IMPORTED_MODULE_0__.default
   },
   props: {
+    interactive: {
+      type: Boolean,
+      "default": true
+    },
     movie: {
       type: Object,
       required: true
@@ -91,6 +95,13 @@ __webpack_require__.r(__webpack_exports__);
     showTitles: {
       type: Boolean,
       "default": true
+    }
+  },
+  computed: {
+    movieTeaserClasses: function movieTeaserClasses() {
+      var list = ['movie', 'movie-teaser'];
+      if (this.interactive) list.push('interactive');
+      return list.join(' ');
     }
   }
 });
@@ -116,6 +127,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
 //
 //
 //
@@ -399,7 +411,7 @@ var render = function() {
     _c("img", {
       attrs: {
         alt: "Movie poster for " + _vm.movie.name + ".",
-        src: "/images/" + _vm.movie.id + ".jpg",
+        src: "/storage/" + _vm.movie.poster,
         width: _vm.width,
         height: _vm.height
       }
@@ -431,13 +443,13 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "movie movie-teaser" },
+    { class: _vm.movieTeaserClasses },
     [
       _c("display-movie-poster", { attrs: { movie: _vm.movie } }),
       _vm._v(" "),
       _vm.showTitles
         ? [
-            _c("h3", { staticClass: "movie-title" }, [
+            _c("h4", { staticClass: "movie-title" }, [
               _vm._v("\n\t\t\t" + _vm._s(_vm.movie.name) + "\n\t\t")
             ]),
             _vm._v(" "),
@@ -491,7 +503,11 @@ var render = function() {
         return _c(
           "li",
           { key: movie.id, staticClass: "list-group-item" },
-          [_c("display-movie-teaser", { attrs: { movie: movie } })],
+          [
+            _c("display-movie-teaser", {
+              attrs: { movie: movie, interactive: false }
+            })
+          ],
           1
         )
       }),

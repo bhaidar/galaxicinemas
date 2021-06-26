@@ -1,28 +1,21 @@
 <?php
 
 use App\User;
+use App\Movie;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
 Route::post('/authenticate', function (Request $request) {
-	
 	$credentials = $request->validate([
 		'username' => ['required'],
 		'password' => ['required']
 	]);
-
 	if(Auth::attempt($credentials)) {
-		// $user = User::where('username', $request->input('username'))->first();
-		// $token = $user->createToken('Galaxi Password Grant Client')->accessToken;
 		$token = $request->user()->createToken('Galaxi Password Grant Client');
 	    return ['token' => $token->plainTextToken];
-	//	$response = ['token' => $token];
-//		return response($response, 200);
 	}
-
 	return response(['message' => 'That did not work.'], 422);
-
 });
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
@@ -36,523 +29,69 @@ Route::get('/logout', function (Request $request) {
 	return response(['user' => null], 200);
 });
 
+// create new movie
+Route::post('/movie', function(Request $request) {
+
+	if(!empty($request->input('id'))) // there should NOT be an id attached
+		return response(['message' => 'That movie could not be created as it already has an id.'], 400);
+
+	$inputs = $request->all();
+	$poster = !empty($inputs['poster']) ? $inputs['poster'] : null;
+	unset($inputs['poster']);
+	$movie = Movie::create($inputs);
+	if(empty($movie))
+		return response(['message' => 'That movie could not be created.'], 400);
+
+	if(!empty($poster)) {
+		$filename = $movie->store_poster($poster);
+		if(!empty($filename))
+			$movie->update(['poster' => $filename]);
+	}
+
+	return response(['message' => 'Create successful.', 'movie' => $movie], 200);
+
+});
+
+// update existing movie
+Route::post('/movie/{movie_id}', function(Request $request, $movie_id) {
+
+	$movie = Movie::where('id', $movie_id)->first();
+	if(empty($movie))
+		return response(['message' => 'That movie does not exist.'], 400);
+
+	$inputs = $request->all();
+
+	if(!empty($inputs['poster'])) {
+		$filename = $movie->store_poster($inputs['poster']);
+		if(!empty($filename))
+			$inputs['poster'] = $filename;
+		else
+			$inputs['poster'] = '';
+	}
+
+	$movie->update($inputs);
+	return response(['message' => 'Update successful.', 'movie' => $movie], 200);
+	
+});
+
 Route::get('/movie/{movie_id}', function (Request $request, $movie_id) {
+	$movie = Movie::where('id', $movie_id)->first();
+	if(empty($movie))
+		return response(['message' => 'That movie does not exist.'], 400);
+	return response(['movie' => $movie], 200);
+});
 
-	$_movies = [
-
-		[
-			'id' => 'dummy_movie-1',
-			'name' => 'Movie One',
-			'rating' => 'PG',
-			'description' => 'A really great movie.',
-			'duration' => 123,
-			'release_date' => '2021-01-01',
-			'showtimes' => [
-				'2021-06-24' => [
-					1115,
-					1400
-				],
-				'2021-06-25' => [
-					1115,
-					1400
-				],
-				'2021-06-26' => [
-					1115,
-					1400,
-					1715,
-					2000
-				],
-				'2021-06-27' => [
-					1115,
-					1400,
-					1715,
-					2000
-				],
-				'2021-06-29' => [
-					1115,
-					1400
-				]
-			]
-		],
-
-		[
-			'id' => 'dummy_movie-2',
-			'name' => 'Movie Two',
-			'rating' => 'R',
-			'description' => 'An okay movie.',
-			'duration' => 110,
-			'release_date' => '2021-02-01',
-			'showtimes' => [
-				'2021-06-24' => [
-					1115,
-					1400
-				],
-				'2021-06-25' => [
-					1115,
-					1400
-				],
-				'2021-06-26' => [
-					1115,
-					1400,
-					1715,
-					2000
-				],
-				'2021-06-27' => [
-					1115,
-					1400,
-					1715,
-					2000
-				],
-				'2021-06-29' => [
-					1115,
-					1400
-				]
-			]
-		],
-
-		[
-			'id' => 'dummy_movie-3',
-			'name' => 'Movie Three: With a Particularly Long Title',
-			'rating' => 'PG',
-			'description' => 'The title is better than the movie in this case.',
-			'duration' => 144,
-			'release_date' => '2021-03-01',
-			'showtimes' => [
-				'2021-06-24' => [
-					1115,
-					1400
-				],
-				'2021-06-25' => [
-					1115,
-					1400
-				],
-				'2021-06-26' => [
-					1115,
-					1400,
-					1715,
-					2000
-				],
-				'2021-06-27' => [
-					1115,
-					1400,
-					1715,
-					2000
-				],
-				'2021-06-29' => [
-					1115,
-					1400
-				]
-			]
-		],
-
-		[
-			'id' => 'dummy_movie-4',
-			'name' => 'Movie Four',
-			'rating' => 'G',
-			'description' => 'If you have nothing better to see, this will do.',
-			'duration' => 140,
-			'release_date' => '2021-05-01',
-			'showtimes' => [
-				'2021-06-24' => [
-					1115,
-					1400
-				],
-				'2021-06-25' => [
-					1115,
-					1400
-				],
-				'2021-06-26' => [
-					1115,
-					1400,
-					1715,
-					2000
-				],
-				'2021-06-27' => [
-					1115,
-					1400,
-					1715,
-					2000
-				],
-				'2021-06-29' => [
-					1115,
-					1400
-				]
-			]
-		],
-
-		[
-			'id' => 'dummy_movie-5',
-			'name' => 'Movie Five Forever',
-			'rating' => 'R',
-			'description' => 'A great movie, great soundtrack, really great story and everything else.',
-			'duration' => 150,
-			'release_date' => '2021-07-01',
-			'showtimes' => []
-		],
-
-		[
-			'id' => 'dummy_movie-6',
-			'name' => 'Movie Six',
-			'rating' => 'PG-13',
-			'description' => 'An okay movie with a lot of stuff that happens.',
-			'duration' => 180,
-			'release_date' => '2021-08-01',
-			'showtimes' => []
-		]
-
-	];
-
-	$movie_index = array_search($movie_id, array_column($_movies, 'id'));
-	if($movie_index === false)
-		return response(null, 200);
-	return response($_movies[$movie_index], 200);
-
+Route::get('/movies', function (Request $request) {
+	$movies = Movie::latest()->take(500)->get();
+	return response($movies, 200);
 });
 
 Route::get('/movies/coming-soon', function (Request $request) {
-
-	$_movies = [
-
-		[
-			'id' => 'dummy_movie-1',
-			'name' => 'Movie One',
-			'rating' => 'PG',
-			'description' => 'A really great movie.',
-			'duration' => 123,
-			'release_date' => '2021-01-01',
-			'showtimes' => [
-				'2021-06-24' => [
-					1115,
-					1400
-				],
-				'2021-06-25' => [
-					1115,
-					1400
-				],
-				'2021-06-26' => [
-					1115,
-					1400,
-					1715,
-					2000
-				],
-				'2021-06-27' => [
-					1115,
-					1400,
-					1715,
-					2000
-				],
-				'2021-06-29' => [
-					1115,
-					1400
-				]
-			]
-		],
-
-		[
-			'id' => 'dummy_movie-2',
-			'name' => 'Movie Two',
-			'rating' => 'R',
-			'description' => 'An okay movie.',
-			'duration' => 110,
-			'release_date' => '2021-02-01',
-			'showtimes' => [
-				'2021-06-24' => [
-					1115,
-					1400
-				],
-				'2021-06-25' => [
-					1115,
-					1400
-				],
-				'2021-06-26' => [
-					1115,
-					1400,
-					1715,
-					2000
-				],
-				'2021-06-27' => [
-					1115,
-					1400,
-					1715,
-					2000
-				],
-				'2021-06-29' => [
-					1115,
-					1400
-				]
-			]
-		],
-
-		[
-			'id' => 'dummy_movie-3',
-			'name' => 'Movie Three: With a Particularly Long Title',
-			'rating' => 'PG',
-			'description' => 'The title is better than the movie in this case.',
-			'duration' => 144,
-			'release_date' => '2021-03-01',
-			'showtimes' => [
-				'2021-06-24' => [
-					1115,
-					1400
-				],
-				'2021-06-25' => [
-					1115,
-					1400
-				],
-				'2021-06-26' => [
-					1115,
-					1400,
-					1715,
-					2000
-				],
-				'2021-06-27' => [
-					1115,
-					1400,
-					1715,
-					2000
-				],
-				'2021-06-29' => [
-					1115,
-					1400
-				]
-			]
-		],
-
-		[
-			'id' => 'dummy_movie-4',
-			'name' => 'Movie Four',
-			'rating' => 'G',
-			'description' => 'If you have nothing better to see, this will do.',
-			'duration' => 140,
-			'release_date' => '2021-05-01',
-			'showtimes' => [
-				'2021-06-24' => [
-					1115,
-					1400
-				],
-				'2021-06-25' => [
-					1115,
-					1400
-				],
-				'2021-06-26' => [
-					1115,
-					1400,
-					1715,
-					2000
-				],
-				'2021-06-27' => [
-					1115,
-					1400,
-					1715,
-					2000
-				],
-				'2021-06-29' => [
-					1115,
-					1400
-				]
-			]
-		],
-
-		[
-			'id' => 'dummy_movie-5',
-			'name' => 'Movie Five Forever',
-			'rating' => 'R',
-			'description' => 'A great movie, great soundtrack, really great story and everything else.',
-			'duration' => 150,
-			'release_date' => '2021-07-01',
-			'showtimes' => []
-		],
-
-		[
-			'id' => 'dummy_movie-6',
-			'name' => 'Movie Six',
-			'rating' => 'PG-13',
-			'description' => 'An okay movie with a lot of stuff that happens.',
-			'duration' => 180,
-			'release_date' => '2021-08-01',
-			'showtimes' => []
-		]
-
-	];
-
-	return response([
-		$_movies[4],
-		$_movies[5]
-	], 200);
-
+	$movies = Movie::where('coming_soon', true)->get();
+	return response($movies, 200);
 });
 
 Route::get('/movies/now-playing', function (Request $request) {
-
-	$_movies = [
-
-		[
-			'id' => 'dummy_movie-1',
-			'name' => 'Movie One',
-			'rating' => 'PG',
-			'description' => 'A really great movie.',
-			'duration' => 123,
-			'release_date' => '2021-01-01',
-			'showtimes' => [
-				'2021-06-24' => [
-					1115,
-					1400
-				],
-				'2021-06-25' => [
-					1115,
-					1400
-				],
-				'2021-06-26' => [
-					1115,
-					1400,
-					1715,
-					2000
-				],
-				'2021-06-27' => [
-					1115,
-					1400,
-					1715,
-					2000
-				],
-				'2021-06-29' => [
-					1115,
-					1400
-				]
-			]
-		],
-
-		[
-			'id' => 'dummy_movie-2',
-			'name' => 'Movie Two',
-			'rating' => 'R',
-			'description' => 'An okay movie.',
-			'duration' => 110,
-			'release_date' => '2021-02-01',
-			'showtimes' => [
-				'2021-06-24' => [
-					1115,
-					1400
-				],
-				'2021-06-25' => [
-					1115,
-					1400
-				],
-				'2021-06-26' => [
-					1115,
-					1400,
-					1715,
-					2000
-				],
-				'2021-06-27' => [
-					1115,
-					1400,
-					1715,
-					2000
-				],
-				'2021-06-29' => [
-					1115,
-					1400
-				]
-			]
-		],
-
-		[
-			'id' => 'dummy_movie-3',
-			'name' => 'Movie Three: With a Particularly Long Title',
-			'rating' => 'PG',
-			'description' => 'The title is better than the movie in this case.',
-			'duration' => 144,
-			'release_date' => '2021-03-01',
-			'showtimes' => [
-				'2021-06-24' => [
-					1115,
-					1400
-				],
-				'2021-06-25' => [
-					1115,
-					1400
-				],
-				'2021-06-26' => [
-					1115,
-					1400,
-					1715,
-					2000
-				],
-				'2021-06-27' => [
-					1115,
-					1400,
-					1715,
-					2000
-				],
-				'2021-06-29' => [
-					1115,
-					1400
-				]
-			]
-		],
-
-		[
-			'id' => 'dummy_movie-4',
-			'name' => 'Movie Four',
-			'rating' => 'G',
-			'description' => 'If you have nothing better to see, this will do.',
-			'duration' => 140,
-			'release_date' => '2021-05-01',
-			'showtimes' => [
-				'2021-06-24' => [
-					1115,
-					1400
-				],
-				'2021-06-25' => [
-					1115,
-					1400
-				],
-				'2021-06-26' => [
-					1115,
-					1400,
-					1715,
-					2000
-				],
-				'2021-06-27' => [
-					1115,
-					1400,
-					1715,
-					2000
-				],
-				'2021-06-29' => [
-					1115,
-					1400
-				]
-			]
-		],
-
-		[
-			'id' => 'dummy_movie-5',
-			'name' => 'Movie Five Forever',
-			'rating' => 'R',
-			'description' => 'A great movie, great soundtrack, really great story and everything else.',
-			'duration' => 150,
-			'release_date' => '2021-07-01',
-			'showtimes' => []
-		],
-
-		[
-			'id' => 'dummy_movie-6',
-			'name' => 'Movie Six',
-			'rating' => 'PG-13',
-			'description' => 'An okay movie with a lot of stuff that happens.',
-			'duration' => 180,
-			'release_date' => '2021-08-01',
-			'showtimes' => []
-		]
-
-	];
-
-	return response([
-		$_movies[0],
-		$_movies[1],
-		$_movies[2],
-		$_movies[3]
-	], 200);
-
+	$movies = Movie::where('coming_soon', false)->get();
+	return response($movies, 200);
 });
