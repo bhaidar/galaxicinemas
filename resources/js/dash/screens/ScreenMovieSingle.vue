@@ -168,13 +168,8 @@
 				const movieData = assign(this.inputMovie, { id: this.movieId || null });
 				this.saveMovie(movieData)
 				.then(result => {
-					if(result) {
-						this.storedMovie = this.getMovie(this.movieId);
-						if(this.storedMovie.id)
-							this.$router.push('/movies');
-						else
-							console.error('Save movie missing ID.', result);
-					}
+					if(result)
+						this.$router.push('/movies');
 					else
 						console.error('Save movie encountered an error.', result);
 				});

@@ -57,6 +57,7 @@
 
 	import DisplayCard from '@elements/DisplayCard';
 	import { mapActions, mapState } from 'vuex';
+	import { cloneDeep } from 'lodash';
 
 	export default {
 		
@@ -75,7 +76,8 @@
 			moviesByUpdated() {
 				if(this.movies.length <= 1)
 					return this.movies;
-				return this.movies.sort((a, b) => (a.updated > b.updated) ? 1 : -1);
+				const list = cloneDeep(this.movies);
+				return list.sort((a, b) => (a.updated_at < b.updated_at) ? 1 : -1);
 			}
 
 		},

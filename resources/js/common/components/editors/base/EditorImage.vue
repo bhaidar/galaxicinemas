@@ -51,13 +51,13 @@
 				v-show="!isBusy"
 				class="btn-group"
 			>
-				<button
+				<!-- <button
 					class="btn btn-primary btn-sm"
 					type="button"
 					@click.stop="$event => $emit('click', $event)"
 				>
 					Replace
-				</button>
+				</button> -->
 				<button
 					:style="{ 'z-index': 13 }"
 					class="btn btn-primary btn-sm"
