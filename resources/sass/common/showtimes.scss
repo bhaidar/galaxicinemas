@@ -3,6 +3,9 @@
 	font-size: 10px; // easier relative math
 	height: 15.5em;
 
+	overflow-x: auto;
+	overflow-y: visible;
+
 	.hours, .showtimes {
 		position: relative;
 		white-space: nowrap;

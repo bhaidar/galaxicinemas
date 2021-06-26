@@ -2,7 +2,7 @@
 
 	position: fixed;
 	z-index: 900;
-	top: 100vh; right: 0; left: 0;
+	top: 150vh; right: 0; left: 0;
 	height: 100vh;
 	margin: 0; padding: 0 2rem;
 
@@ -79,6 +79,9 @@
 		position: relative;
 		margin: 0 2rem; padding: 0 2rem 3rem;
 		box-shadow: 1rem 1rem 1rem var(--color_dark-alt);
+		max-height: 80vh;
+		overflow-x: hidden;
+		overflow-y: auto;
 	}
 
 }
