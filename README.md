@@ -50,7 +50,7 @@ Website and Management tool for movie theaters.
 ### Known Issues
 There are quite a few known issues, so I will mention the serious ones.
 - images don't get resized so you should shoot for `280x400` for them to look good
-- the layout is currently a little too big for really small screens
+- the layout is currently missing some reponsiveness on smaller screens
 - form validation is very rudimentary, and I'm sure it's possible to get 500 errors from the api
 - deleting movies in the dashboard does not work
 - the replace image button doesn't work when editing a movie
