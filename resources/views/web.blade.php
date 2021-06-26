@@ -12,8 +12,8 @@
 		<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700;900&display=swap" rel="stylesheet">
 
 		<!-- Styles -->
-		<link href="/css/common.css" rel="stylesheet" />
-		<link href="/css/web.css" rel="stylesheet" />
+		<link href="{{asset(mix('css/common.css'), true)}}" rel="stylesheet" />
+		<link href="{{asset(mix('css/web.css'), true)}}" rel="stylesheet" />
 		<style>
 
 			:root {
@@ -65,6 +65,6 @@
 				document.body.classList.toggle('is-scrolled', hasScrolledEnough);
 			});
 		</script>
-		<script src="/js/web.js"></script>
+		<script src="{{asset(mix('js/web.js'), true)}}"></script>
 	</body>
 </html>

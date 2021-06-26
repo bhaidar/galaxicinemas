@@ -22,3 +22,7 @@ mix.js('resources/js/dash/index.js', 'public/js/dash.js')
 	});
 
 mix.vue();
+
+if(mix.inProduction()) {
+	mix.version();
+}

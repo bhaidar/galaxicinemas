@@ -21,6 +21,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'DisplayMoviePoster',
   props: {
@@ -389,14 +392,17 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("figure", { staticClass: "movie-poster" }, [
-    _c("img", {
-      attrs: {
-        alt: "Movie poster for " + _vm.movie.name + ".",
-        src: "/storage/" + _vm.movie.poster,
-        width: _vm.width,
-        height: _vm.height
-      }
-    })
+    _c("div", { staticClass: "movie-poster-crop" }, [
+      _c("img", {
+        staticClass: "movie-poster-image",
+        attrs: {
+          alt: "Movie poster for " + _vm.movie.name + ".",
+          src: "/storage/" + _vm.movie.poster,
+          width: _vm.width,
+          height: _vm.height
+        }
+      })
+    ])
   ])
 }
 var staticRenderFns = []

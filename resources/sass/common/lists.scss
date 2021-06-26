@@ -11,6 +11,14 @@
 
 		display: flex;
 		flex-wrap: wrap;
+		align-items: flex-start;
+		justify-content: center;
+		width: calc(100% - 1rem);
+		padding: 0 0 0 1rem;
+
+		& > .list-group-item {
+			max-width: 50%;
+		}
 
 	}
 
@@ -18,10 +26,4 @@
 		display: flex;
 	}
 
-}
-
-.tab-triggers {
-	.list-group-tab-trigger {
-
-	}
 }

@@ -91,7 +91,9 @@ body:after {
 	@include xxxxl { content: 'xxxxl'; }
 	@include xxxxxl { content: 'xxxxxl'; }
 
+	pointer-events: none;
 	display: block;
+	visibility: hidden;
 	position: fixed;
 	z-index: 5000;
 	right: 0; bottom: 0;

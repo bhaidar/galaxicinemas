@@ -24,20 +24,22 @@ body {
 	background-color: var(--color_light-alt);
 	color: var(--color_dark);
 	font-family: var(--font_primary);
-
-	width: 100vw; height: 100vh;
 	margin: 0; padding: 0;
 
 	overflow-x: hidden;
+	overflow-y: auto;
 
 	& > .body-wrap {
 		position: relative;
 		z-index: 10;
-		width: 100vw; min-height: calc(100vh - #{$layoutHeight_header + $layoutHeight_footer});
-		margin: 0; padding: $layoutHeight_header 0 $layoutHeight_footer;
-		overflow: auto;
+		width: 100vw; min-height: calc(100vh - #{$layoutHeight_header + ($layoutHeight_footer * 2)});
+		margin: 0; padding: $layoutHeight_header 0 ($layoutHeight_footer * 2);
 	}
 
+}
+
+html, body, .body-wrap {
+	overflow-x: hidden;
 }
 
 .container {
@@ -84,6 +86,7 @@ body {
 		@include xl { font-size: 6rem; }
 		@include xxl { font-size: 6.6rem; }
 		
+		transition: font-size .3s;
 
 		max-width: calc(50vw - 2rem);
 		margin: .1em 1rem 0;
@@ -106,6 +109,10 @@ body {
 	right: 0; bottom: 0; left: 0;
 	width: 100vw; height: $layoutHeight_footer;
 	margin: 0; padding: 0;
+
+	background: var(--color_light-alt);
+	box-shadow: 0 0 2rem rgba(0,0,0,.3);
+	border-top: .1rem solid var(--color_light);
 
 	.links > ul {
 		margin: 0; padding: 0;
@@ -141,7 +148,8 @@ body {
 				display: inline-block;
 				background: var(--color_light);;
 				color: var(--color_light-alt);
-				font-size: 1.8rem; line-height: 2.4;
+				font-size: 1.4rem; line-height: 2.4;
+				@include md { font-size: 1.8rem; } 
 				font-weight: 600;
 				text-align: center;
 				text-decoration: none;
